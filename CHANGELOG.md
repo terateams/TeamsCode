@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Rag support
 - Langchain support
 
+## [0.0.3]
+
+- notelist fix
+
 ## [0.0.2]
 
 - Code migration from ts to js

@@ -3,6 +3,8 @@ const writingCommand = require("./src/writing").writingCommand;
 const summariesCommand = require("./src/summaries").summariesCommand;
 const codingCommand = require("./src/coding").codingCommand;
 const genslideCommand = require("./src/genslide").genslideCommand;
+const notelistCommand = require("./src/notelist").notelistCommand;
+const addNoteCommand = require("./src/notelist").addNoteCommand;
 
 const commands = {
     "teamscode.aiwrite": "Continue writing",
@@ -18,19 +20,39 @@ const commands = {
 function activate(context) {
     console.log("initializing TeamsCode extension...")
     context.subscriptions.push(
-        vscode.commands.registerCommand("teamscode.aiwrite", writingCommand)
+        vscode.commands.registerCommand("teamscode.aiwrite", async () => {
+            await writingCommand(context);
+        })
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand("teamscode.summaries", summariesCommand)
+        vscode.commands.registerCommand("teamscode.summaries", async () => {
+            await summariesCommand(context);
+        })
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand("teamscode.coding", codingCommand)
+        vscode.commands.registerCommand("teamscode.coding", async () => {
+            await codingCommand(context);
+        })
     );
 
     context.subscriptions.push(
-        vscode.commands.registerCommand("teamscode.genslide", genslideCommand)
+        vscode.commands.registerCommand("teamscode.genslide", async () => {
+            await genslideCommand(context);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("teamscode.notelist", async () => {
+            await notelistCommand(context);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("teamscode.addNote", async () => {
+            await addNoteCommand(context);
+        })
     );
 
     // Register showCommands command
@@ -83,7 +105,7 @@ function activate(context) {
     }));
 }
 
-function deactivate() {}
+function deactivate() { }
 
 module.exports = {
     activate,

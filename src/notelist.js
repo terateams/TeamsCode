@@ -117,13 +117,20 @@ async function addNoteCommand(context) {
             title: getTitleFromText(text),
             content: text,
         };
-        const notes = context.globalState.get("coolwriter.notes", []);
-        notes.push(note);
-        context.globalState.update("coolwriter.notes", notes);
-        notelist.webview.postMessage({
-            command: "coolwriter.addNote",
-            note: note,
-        });
+        try {
+            const notes = context.globalState.get("coolwriter.notes", []);
+            notes.push(note);
+            context.globalState.update("coolwriter.notes", notes);
+            notelist.webview.postMessage({
+                command: "coolwriter.addNote",
+                note: note,
+            });
+        } catch (e) {
+            console.log(e);
+            vscode.window.showErrorMessage(e.message);
+        }
+
+
     }
 }
 
@@ -231,6 +238,15 @@ function getHtmlViewContent() {
                         break;
                 }
             });
+
+            function getSubText(text) {
+                if (text.length <= 512) {
+                    return text;
+                } else {
+                    return text.substring(0, 512);
+                }
+            }
+            
     
     
             // Delete note from local
@@ -258,7 +274,7 @@ function getHtmlViewContent() {
                 noteItem.appendChild(noteTitle);
             
                 const noteContent = document.createElement('p');
-                noteContent.textContent = note.content;
+                noteContent.textContent = getSubText(note.content);
                 noteItem.appendChild(noteContent);
                 
                 // 创建一个Insert按钮

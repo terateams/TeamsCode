@@ -10,13 +10,13 @@ TeamsCode is an intelligent writing assistant designed for writers that integrat
 
 `shift+ctrl+s`: Pop-up prompt entry box to enter prompts to generate Marp Slide
 
-`shift+ctrl+c`: Open Extension Settings 
+`shift+ctrl+c`: Open Extension Settings
 
 `shift+ctrl+m`: Show Extension Commands
 
 ## Features
 
-The TeamsCode extension includes the following features: 
+The TeamsCode extension includes the following features:
 
 - **Contextual awareness**: Based on the content of the current document, TeamsCode can recognize and adapt to different writing styles and topics, and provide contextual vocabulary suggestions and sentence structure adjustments. It understands the specific needs of different text types, such as technical articles, storytelling, or academic arguments, and optimizes suggestions accordingly to ensure that your writing is coherent and accurate. 
 - **Select Summary**: When you select a text in the Chinese file, TeamsCode can provide you with a short summary of the paragraph to help you quickly understand and review the main content. This feature is especially useful for reviewing previous chapters when editing a long article, and can help you quickly sort out key information when conducting academic research or literature reviews. 
