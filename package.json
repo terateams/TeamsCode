@@ -2,7 +2,7 @@
   "name": "teamscode",
   "displayName": "TeamsCode",
   "description": "This is a vscode extension for AI-assisted writing",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "publisher": "TeraTeams",
   "engines": {
     "vscode": "^1.86.0"
