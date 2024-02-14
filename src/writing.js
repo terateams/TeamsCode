@@ -5,7 +5,7 @@ const smartWriting = require("./apis").smartWriting;
 /**
  * @param {vscode.ExtensionContext} context
  */
-async function writingCommand(context){
+async function writingCommand(context) {
     let cancel = false;
     const quickPick = vscode.window.createQuickPick();
     const withNoteLabel = "Writing with note";
@@ -18,10 +18,22 @@ async function writingCommand(context){
     quickPick.placeholder = "Please enter a writing prompt";
     quickPick.canSelectMany = true; // 允许多选
     quickPick.items = [
-        { label: withNoteLabel, alwaysShow: true }, // 特殊项用于确认选择
-        { label: feynmanStyle, alwaysShow: true }, // 费曼风格：直观，幽默，激情
-        { label: xiaoboStyle, alwaysShow: true }, // 王小波风格：犀利，幽默，深刻
-        { label: slideWrite, alwaysShow: true }, // 生成幻灯片内容
+        {
+            label: withNoteLabel, alwaysShow: true,
+            detail: "Use the list of currently active notes as a context"
+        }, // 使用当前活动笔记列表作为上下文
+        {
+            label: feynmanStyle, alwaysShow: true,
+            detail: "A style of presentation similar to that of the physicist Feynman "
+        }, // 费曼风格：直观，幽默，激情
+        {
+            label: xiaoboStyle, alwaysShow: true,
+            detail: "A style of presentation similar to that of the writer Wang Xiaobo "
+        }, // 王小波风格：犀利，幽默，深刻
+        {
+            label: slideWrite, alwaysShow: true,
+            detail: "Check this to generate streamlined slide content"
+        }, // 生成幻灯片内容
     ];
 
     quickPick.onDidHide(() => (cancel = true));
@@ -89,7 +101,7 @@ async function writingCommand(context){
                         break;
                     }
                     const newText = chunk.content;
-                    if(!newText){
+                    if (!newText) {
                         continue;
                     }
                     await editor.edit((editBuilder) => {

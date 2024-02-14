@@ -13,7 +13,10 @@ async function genslideCommand(context) {
     quickPick.placeholder = "Please enter a slide prompt";
     quickPick.canSelectMany = true; // 允许多选
     quickPick.items = [
-        { label: withNoteLabel, alwaysShow: true }, // 特殊项用于确认选择
+        {
+            label: withNoteLabel, alwaysShow: true,
+            detail: "Use the list of currently active notes as a context"
+        }, // 使用当前活动笔记列表作为上下文
     ];
 
     quickPick.onDidHide(() => (cancel = true));
