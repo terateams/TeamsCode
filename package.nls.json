@@ -1,0 +1,10 @@
+{
+    "aiwrite.command.title": "Continue Writing",
+    "coding.command.title": "Smart Coding",
+    "summaries.command.title": "Summarize selection",
+    "genslide.command.title": "Create Marp Slide",
+    "notelist.command.title": "Open Note List",
+    "addNote.command.title": "Add to notelist",
+    "showCommands.command.title": "Show command list",
+    "openExtensionSettings.command.title": "Open Extension Settings"
+}

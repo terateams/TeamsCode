@@ -1,0 +1,246 @@
+{
+  "name": "teamscode",
+  "displayName": "TeamsCode",
+  "description": "This is a vscode extension for AI-assisted writing",
+  "version": "0.0.2",
+  "publisher": "TeraTeams",
+  "engines": {
+    "vscode": "^1.86.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/terateams/TeamsCode"
+  },
+  "categories": [
+    "Education",
+    "Programming Languages"
+  ],
+  "extensionDependencies": [
+    "marp-team.marp-vscode"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./extension.js",
+  "contributes": {
+    "localizations": [
+      {
+        "languageId": "zh-cn",
+        "languageName": "Simplified Chinese",
+        "localizedLanguageName": "简体中文",
+        "translations": [
+          {
+            "id": "package.nls",
+            "path": "./package.nls.zh-cn.json"
+          }
+        ]
+      }
+    ],
+    "configuration": {
+      "title": "teamscode Settings",
+      "properties": {
+        "teamscode.teamsgptApiEndpoint": {
+          "type": "string",
+          "default": "https://api.teamsgpt.net",
+          "description": "TeamsGPT API endpoint, if empty, the environment TEAMSGPT_API_ENDPOINT will be used"
+        },
+        "teamscode.teamsgptApiToken": {
+          "type": "string",
+          "default": "",
+          "description": "TeamsGPT API token, if empty, the environment TEAMSGPT_API_TOKEN will be used"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "teamscode.aiwrite",
+        "title": "%aiwrite.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.coding",
+        "title": "%coding.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.summaries",
+        "title": "%summaries.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.genslide",
+        "title": "%genslide.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.notelist",
+        "title": "%notelist.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.addNote",
+        "title": "%addNote.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
+        "command": "teamscode.showCommands",
+        "title": "%showCommands.command.title%",
+        "icon": {
+          "light": "./assets/title.svg",
+          "dark": "./assets/title-dark.svg"
+        }
+      },
+      {
+        "command": "teamscode.openExtensionSettings",
+        "title": "%openExtensionSettings.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "teamscode.aiwrite",
+        "key": "alt+w",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.coding",
+        "key": "alt+c",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.summaries",
+        "key": "alt+s",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "teamscode.genslide",
+        "key": "shift+ctrl+s",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.notelist",
+        "key": "shift+ctrl+o",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.addNote",
+        "key": "shift+ctrl+n",
+        "when": "editorHasSelection"
+      },
+      {
+        "command": "teamscode.showCommands",
+        "key": "shift+ctrl+m",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.openExtensionSettings",
+        "key": "shift+ctrl+c",
+        "when": "editorTextFocus"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "teamscode.coding",
+          "group": "teamscodeGroup"
+        },
+        {
+          "command": "teamscode.addNote",
+          "group": "teamscodeGroup"
+        },
+        {
+          "command": "teamscode.summaries",
+          "group": "teamscodeGroup",
+          "when": "editorHasSelection"
+        },
+        {
+          "submenu": "teamscode",
+          "group": "teamscodeGroup"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "teamscode.showCommands",
+          "group": "navigation"
+        }
+      ],
+      "teamscode": [
+        {
+          "command": "teamscode.aiwrite",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.coding",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.summaries",
+          "group": "navigation",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "teamscode.genslide",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.notelist",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.addNote",
+          "group": "navigation",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "teamscode.showCommands",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.openExtensionSettings",
+          "group": "navigation"
+        }
+      ]
+    },
+    "submenus": [
+      {
+        "id": "teamscode",
+        "label": "TeamsCode"
+      }
+    ]
+  },
+  "scripts": {
+    "lint": "eslint .",
+    "pretest": "npm run lint",
+    "test": "vscode-test"
+  },
+  "devDependencies": {
+    "@types/vscode": "^1.86.0",
+    "@types/mocha": "^10.0.6",
+    "@types/node": "18.x",
+    "eslint": "^8.56.0",
+    "typescript": "^5.3.3",
+    "@vscode/test-cli": "^0.0.4",
+    "@vscode/test-electron": "^2.3.9"
+  }
+}
