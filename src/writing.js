@@ -3,16 +3,23 @@ const getNewPosition = require("./common").getNewPosition;
 const smartWriting = require("./apis").smartWriting;
 
 /**
+ * @param {any[] | readonly vscode.QuickPickItem[]} items
+ * @param {string} label
+ * @returns {boolean}
+ */
+function isSelected(items, label) {
+    return items.find((item) => item.label == label) !== undefined;
+}
+
+/**
  * @param {vscode.ExtensionContext} context
  */
 async function writingCommand(context) {
     let cancel = false;
     const quickPick = vscode.window.createQuickPick();
     const withNoteLabel = "Writing with note";
-    const feynmanStyle =
-        "Writing Style: Sharp, Humorous, Insightful, Rebellious";
-    const xiaoboStyle =
-        "Writing Style: Intuitive, Humorous, Passionate, Creative";
+    const feynmanStyle = "Writing Style: Sharp, Humorous, Insightful, Rebellious";
+    const xiaoboStyle = "Writing Style: Intuitive, Humorous, Passionate, Creative";
     const slideWrite = "Generate slide content";
     quickPick.title = "Writing Prompts..."
     quickPick.placeholder = "Please enter a writing prompt";
@@ -38,10 +45,7 @@ async function writingCommand(context) {
 
     quickPick.onDidHide(() => (cancel = true));
     quickPick.onDidAccept(async () => {
-        const withNote =
-            quickPick.selectedItems.find(
-                (item) => item.label == withNoteLabel
-            ) !== undefined;
+        const withNote = isSelected(quickPick.selectedItems, withNoteLabel);
         const value = quickPick.value;
         let notes = [];
         if (withNote) {
@@ -49,20 +53,16 @@ async function writingCommand(context) {
         }
 
         let writeStyle = "";
-        if (
-            quickPick.selectedItems.find(
-                (item) => item.label == feynmanStyle
-            ) !== undefined
-        ) {
+        if (isSelected(quickPick.selectedItems, feynmanStyle)) {
             writeStyle = feynmanStyle;
         }
 
+        if (isSelected(quickPick.selectedItems, xiaoboStyle)) {
+            writeStyle = xiaoboStyle;
+        }
+
         let slideContent = false;
-        if (
-            quickPick.selectedItems.find(
-                (item) => item.label == slideWrite
-            ) !== undefined
-        ) {
+        if (isSelected(quickPick.selectedItems, slideWrite)) {
             slideContent = true;
         }
 
