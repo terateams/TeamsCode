@@ -24,7 +24,7 @@ function activate(context) {
             await writingCommand(context);
         })
     );
-
+    
     context.subscriptions.push(
         vscode.commands.registerCommand("teamscode.summaries", async () => {
             await summariesCommand(context);
