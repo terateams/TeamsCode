@@ -3,6 +3,7 @@
     "coding.command.title": "AI 智能编程",
     "summaries.command.title": "摘要选中内容",
     "genslide.command.title": "创建 Marp 幻灯片",
+    "bytemplate.command.title": "根据模板生成",
     "notelist.command.title": "打开笔记列表",
     "addNote.command.title": "添加到笔记列表",
     "showCommands.command.title": "显示命令列表",

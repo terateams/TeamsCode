@@ -3,6 +3,7 @@ const writingCommand = require("./src/writing").writingCommand;
 const summariesCommand = require("./src/summaries").summariesCommand;
 const codingCommand = require("./src/coding").codingCommand;
 const genslideCommand = require("./src/genslide").genslideCommand;
+const bytemplateCommand = require("./src/bytemplate").bytemplateCommand;
 const notelistCommand = require("./src/notelist").notelistCommand;
 const addNoteCommand = require("./src/notelist").addNoteCommand;
 
@@ -11,6 +12,7 @@ const commands = {
     "teamscode.coding": "Smart coding",
     "teamscode.summaries": "Summarize selection",
     "teamscode.genslide": "Create marp slide",
+    "teamscode.bytemplate": "Generate by template",
     "teamscode.notelist": "Open note list",
     "teamscode.addNote": "Add to note list",
     "teamscode.showCommands": "Show extension commands",
@@ -40,6 +42,12 @@ function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("teamscode.genslide", async () => {
             await genslideCommand(context);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("teamscode.bytemplate", async () => {
+            await bytemplateCommand(context);
         })
     );
 

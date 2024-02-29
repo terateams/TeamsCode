@@ -89,7 +89,7 @@ async function smartWriting(
     notes,
     writeStyle,
     slideContent
-){
+) {
     const contextMessage = `
 ----------------------------------
 ${beforeText}${selectedText}
@@ -136,7 +136,7 @@ ${afterText}
 async function smartSummaries(
     selectedText,
     prompt
-){
+) {
     const contextMessage =
         "\n----------------------------------\n" +
         selectedText +
@@ -164,7 +164,7 @@ async function smartCoding(
     selectedText,
     prompt,
     notes
-){
+) {
     const contextMessage = `
 ----------------------------------
 ${beforeText}${selectedText}
@@ -199,7 +199,7 @@ ${afterText}
 async function smartGenMarpSlide(
     prompt,
     notes
-){
+) {
     let noteMessages = "";
     if (notes) {
         noteMessages =
@@ -280,10 +280,37 @@ ${noteMessages}
     return completion;
 }
 
+async function generateByTemplate(
+    template,
+    prompt
+) {
+
+    const sysmsg = `Please follow the given template format to generate content.
+
+//Guidelines
+- Analyze the user input prompts to specify the content to be generated.
+- Analyze the given template, which may have specific requirements for content generation that must be followed.
+- Note that the template only provides the format of the content, and the specific content to be generated is based on the user input prompts.
+- Generate specific content in response to input prompts to replace <...> content in the template. Generate specific content in response to input prompts to replace <... > content in the template, if it exists.
+- Strictly adhere to the template format and do not generate extraneous content.
+- If '.....' is present in the template, it means that more content needs to be generated according to the template specification.
+- If '...end' is present in the template, stop generating here, but make sure not to output '...end'.
+- If the user specifies a language, follow the request to output the content in the specified language.
+
+// The given content template is as follows.
+
+${template}
+`;
+    const completion = await client.generate(sysmsg, prompt);
+    return completion;
+
+}
+
 
 module.exports = {
     smartWriting,
     smartSummaries,
     smartCoding,
-    smartGenMarpSlide
+    smartGenMarpSlide,
+    generateByTemplate
 };
