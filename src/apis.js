@@ -285,9 +285,11 @@ async function generateByTemplate(
     prompt
 ) {
 
+    const datetime = new Date().toLocaleString();
     const sysmsg = `Please follow the given template format to generate content.
 
 //Guidelines
+- Current system time is ${datetime}, which can be used in generating content.
 - Analyze the user input prompts to specify the content to be generated.
 - Analyze the given template, which may have specific requirements for content generation that must be followed.
 - Note that the template only provides the format of the content, and the specific content to be generated is based on the user input prompts.
