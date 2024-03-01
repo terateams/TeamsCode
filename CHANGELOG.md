@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Rag support
 - Langchain support
 
+## [0.0.7]
+
+- Improved writing style list
+
 ## [0.0.6]
 
 - fix template time bug

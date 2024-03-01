@@ -11,37 +11,40 @@ function isSelected(items, label) {
     return items.find((item) => item.label == label) !== undefined;
 }
 
+const styles = {
+    "Professional writing characteristics": "Professional writing: accuracy, clarity, conciseness, consistency, objectivity, use of specialized terminology, focus on purpose and adaptability to ensure effective communication.",
+    "Popular writing qualities": "Popular writing: easy to understand, engaging, approachable, practical, emotive, simplifies complex concepts, addresses a wide audience and aims to make information accessible and understandable to everyone.",
+    "Literary writing elements": "Literary writing: Through aesthetic language, creative expression, emotional depth, profound themes, meticulous character development, diverse narrative techniques, and richness of language, aims to provide a unique aesthetic experience that touches the heart and stimulates thought.",
+    "Business writing features": "Business writing: Direct, clear, purpose-driven communication that facilitates transactions, marketing, and business-related exchanges.",
+    "Journalistic writing attributes": "Journalistic writing: Focused on fact reporting, timeliness, and public interest, aimed at conveying news stories and information.",
+    "Creative writing characteristics": "Creative writing: Involves fiction, poetry, scriptwriting, and non-fiction narratives, characterized by imagination, storytelling, and artistic use of language to express personal perspectives, emotions, and creative stories.",
+    "Reflective writing qualities": "Reflective writing: Part of personal or professional development, characterized by personal experiences, feelings, and reflections, aimed at fostering self-awareness and growth."
+};
+
+
 /**
  * @param {vscode.ExtensionContext} context
  */
 async function writingCommand(context) {
     let cancel = false;
     const quickPick = vscode.window.createQuickPick();
-    const withNoteLabel = "Writing with note";
-    const feynmanStyle = "Writing Style: Sharp, Humorous, Insightful, Rebellious";
-    const xiaoboStyle = "Writing Style: Intuitive, Humorous, Passionate, Creative";
+    const withNoteLabel = "Writing with notes";
     const slideWrite = "Generate slide content";
     quickPick.title = "Writing Prompts..."
     quickPick.placeholder = "Please enter a writing prompt";
     quickPick.canSelectMany = true; // 允许多选
-    quickPick.items = [
+    let items = [
         {
             label: withNoteLabel, alwaysShow: true,
-            detail: "Use the list of currently active notes as a context"
-        }, // 使用当前活动笔记列表作为上下文
-        {
-            label: feynmanStyle, alwaysShow: true,
-            detail: "A style of presentation similar to that of the physicist Feynman "
-        }, // 费曼风格：直观，幽默，激情
-        {
-            label: xiaoboStyle, alwaysShow: true,
-            detail: "A style of presentation similar to that of the writer Wang Xiaobo "
-        }, // 王小波风格：犀利，幽默，深刻
+        },// 使用当前活动笔记列表作为上下文
         {
             label: slideWrite, alwaysShow: true,
-            detail: "Check this to generate streamlined slide content"
         }, // 生成幻灯片内容
     ];
+    for (const key in styles) {
+        items.push({ label: key, alwaysShow: true });
+    }
+    quickPick.items = items;
 
     quickPick.onDidHide(() => (cancel = true));
     quickPick.onDidAccept(async () => {
@@ -52,14 +55,19 @@ async function writingCommand(context) {
             notes = context.globalState.get("coolwriter.notes", []);
         }
 
-        let writeStyle = "";
-        if (isSelected(quickPick.selectedItems, feynmanStyle)) {
-            writeStyle = feynmanStyle;
+        let writeStyles = [];
+        for (const style in styles) {
+            if (isSelected(quickPick.selectedItems, style)) {
+                writeStyles.push(styles[style]);
+            }
         }
 
-        if (isSelected(quickPick.selectedItems, xiaoboStyle)) {
-            writeStyle = xiaoboStyle;
+        if (writeStyles.length > 1) {
+            vscode.window.showErrorMessage("Please select only one writing style.");
+            return;
         }
+
+        const writeStyle = writeStyles[0] || "";
 
         let slideContent = false;
         if (isSelected(quickPick.selectedItems, slideWrite)) {

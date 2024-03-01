@@ -109,16 +109,16 @@ ${afterText}
     }
 
     if (writeStyle) {
-        writeStyle = "Pay attention to the " + writeStyle + ".";
+        writeStyle = "Please be careful to follow the writing style: " + writeStyle + ".";
     }
 
     let sysmsg = `You are an intelligent writing assistant, now working on the following content, \
-    Please complete the <Generate content> section, ${writeStyle}\ntaking care to refer to the context \
+    Please complete the <Generate content> section, \n${writeStyle}\ntaking care to refer to the context \
     and not generating redundant content:\n${contextMessage}${noteMessages}`;
 
     if (slideContent) {
         sysmsg = `You are an  marp slide creation assistant, now working on the following content, \
-        Please complete the <Generate content> section, ${writeStyle}\nGenerate content that is concise, \
+        Please complete the <Generate content> section, \n${writeStyle}\nGenerate content that is concise, \
         using a few sentences or a brief checklist, taking care to refer to the context \
         and not generating redundant content:\n${contextMessage}${noteMessages}`;
     }
@@ -289,7 +289,7 @@ async function generateByTemplate(
     const sysmsg = `Please follow the given template format to generate content.
 
 //Guidelines
-- Current system time is ${datetime}, which can be used in generating content.
+- 当前系统时间 ${datetime}, 这个时间可以在生成内容时使用
 - Analyze the user input prompts to specify the content to be generated.
 - Analyze the given template, which may have specific requirements for content generation that must be followed.
 - Note that the template only provides the format of the content, and the specific content to be generated is based on the user input prompts.
