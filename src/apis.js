@@ -109,7 +109,7 @@ ${afterText}
     }
 
     if (writeStyle) {
-        writeStyle = "Please be careful to follow the writing style: " + writeStyle + ".";
+        writeStyle = "Please be careful to follow the writing style: \n\n" + writeStyle + "\n";
     }
 
     let sysmsg = `You are an intelligent writing assistant, now working on the following content, \
@@ -168,7 +168,7 @@ async function smartCoding(
     const contextMessage = `
 ----------------------------------
 ${beforeText}${selectedText}
-<Generate code>
+<Placeholder>
 ${afterText}
 ----------------------------------
 
@@ -182,10 +182,14 @@ ${afterText}
             noteMessages += `${note.content}\n\n`;
         }
     }
-    const sysmsg = `You are a super-intelligent programming assistant who specializes in writing logical, \
-    concise and efficient program code, and you are developing the code for the following applications, \
-    Please complete the <Generate code> section, Note that only pure code is generated, don't wrap code in backquotes!\
-    taking care to refer to the context and not generating redundant content:\n${contextMessage}${noteMessages}`;
+    const sysmsg = `You are a super-intelligent programming co-pilot, assisting users in various programming tasks,
+
+    Guiding Principles
+    - Generate concise and efficient program code,
+    - If the user code contains  <Placeholder>, then your task is to complete <Placeholder> the part.
+    - Be considerate of the context and user input requirements, and don't generate irrelevant content.
+    
+    Here's the code context for the user:\n${contextMessage}\n\n${noteMessages}`;
     const completion = await client.generate(sysmsg, prompt);
     return completion;
 }

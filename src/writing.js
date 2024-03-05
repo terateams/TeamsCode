@@ -18,7 +18,8 @@ const styles = {
     "Business writing features": "Business writing: Direct, clear, purpose-driven communication that facilitates transactions, marketing, and business-related exchanges.",
     "Journalistic writing attributes": "Journalistic writing: Focused on fact reporting, timeliness, and public interest, aimed at conveying news stories and information.",
     "Creative writing characteristics": "Creative writing: Involves fiction, poetry, scriptwriting, and non-fiction narratives, characterized by imagination, storytelling, and artistic use of language to express personal perspectives, emotions, and creative stories.",
-    "Reflective writing qualities": "Reflective writing: Part of personal or professional development, characterized by personal experiences, feelings, and reflections, aimed at fostering self-awareness and growth."
+    "Reflective writing qualities": "Reflective writing: Part of personal or professional development, characterized by personal experiences, feelings, and reflections, aimed at fostering self-awareness and growth.",
+    "Colloquial writing": "Colloquial writing: By utilizing more accessible informal language, a first-person perspective, direct and personalized expressions, conversational elements, short sentences and informal vocabulary, emotional expression, and a light-hearted, humorous tone, it aims to create a relaxed, easy-to-read, and highly interactive reading experience."
 };
 
 
@@ -62,12 +63,10 @@ async function writingCommand(context) {
             }
         }
 
-        if (writeStyles.length > 1) {
-            vscode.window.showErrorMessage("Please select only one writing style.");
-            return;
+        let writeStyle = "";
+        for (const style of writeStyles) {
+            writeStyle += "- "+ style + "\n";
         }
-
-        const writeStyle = writeStyles[0] || "";
 
         let slideContent = false;
         if (isSelected(quickPick.selectedItems, slideWrite)) {
