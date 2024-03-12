@@ -47,83 +47,94 @@ async function writingCommand(context) {
     }
     quickPick.items = items;
 
-    quickPick.onDidHide(() => (cancel = true));
+    // quickPick.onDidHide(() => (cancel = true));
     quickPick.onDidAccept(async () => {
-        const withNote = isSelected(quickPick.selectedItems, withNoteLabel);
-        const value = quickPick.value;
-        let notes = [];
-        if (withNote) {
-            notes = context.globalState.get("coolwriter.notes", []);
-        }
-
-        let writeStyles = [];
-        for (const style in styles) {
-            if (isSelected(quickPick.selectedItems, style)) {
-                writeStyles.push(styles[style]);
+        vscode.window.withProgress({
+            location: vscode.ProgressLocation.Notification,
+            title: "TeamsCode Writing...",
+            cancellable: true,
+        }, async (progress, token) => {
+            quickPick.hide();
+            token.onCancellationRequested(() => {
+                cancel = true;
+            })
+            progress.report({ message: "Writing..." });
+            const withNote = isSelected(quickPick.selectedItems, withNoteLabel);
+            const value = quickPick.value;
+            let notes = [];
+            if (withNote) {
+                notes = context.globalState.get("coolwriter.notes", []);
             }
-        }
 
-        let writeStyle = "";
-        for (const style of writeStyles) {
-            writeStyle += "- "+ style + "\n";
-        }
-
-        let slideContent = false;
-        if (isSelected(quickPick.selectedItems, slideWrite)) {
-            slideContent = true;
-        }
-
-        const editor = vscode.window.activeTextEditor;
-        if (editor) {
-            try {
-                cancel = false;
-                const selection = editor.selection;
-                const selectedText = editor.document.getText(selection);
-                let insertPosition = selection.isEmpty
-                    ? selection.active
-                    : selection.end;
-                const beforeText = editor.document.getText(
-                    new vscode.Range(new vscode.Position(0, 0), selection.start)
-                );
-                const afterText = editor.document.getText(
-                    new vscode.Range(
-                        selection.end,
-                        new vscode.Position(editor.document.lineCount, 0)
-                    )
-                );
-
-                quickPick.busy = true;
-                const completion = await smartWriting(
-                    beforeText,
-                    afterText,
-                    selectedText,
-                    value,
-                    notes,
-                    writeStyle,
-                    slideContent
-                );
-                for await (const chunk of completion) {
-                    if (cancel) {
-                        console.log("Operation cancelled by the user.");
-                        break;
-                    }
-                    const newText = chunk.content;
-                    if (!newText) {
-                        continue;
-                    }
-                    await editor.edit((editBuilder) => {
-                        editBuilder.insert(insertPosition, newText);
-                    });
-                    insertPosition = getNewPosition(insertPosition, newText);
+            let writeStyles = [];
+            for (const style in styles) {
+                if (isSelected(quickPick.selectedItems, style)) {
+                    writeStyles.push(styles[style]);
                 }
-            } catch (error) {
-                console.error(error);
-                vscode.window.showErrorMessage(error.message);
-            } finally {
-                quickPick.busy = false;
-                quickPick.hide();
             }
-        }
+
+            let writeStyle = "";
+            for (const style of writeStyles) {
+                writeStyle += "- " + style + "\n";
+            }
+
+            let slideContent = false;
+            if (isSelected(quickPick.selectedItems, slideWrite)) {
+                slideContent = true;
+            }
+
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+                try {
+                    cancel = false;
+                    const selection = editor.selection;
+                    const selectedText = editor.document.getText(selection);
+                    let insertPosition = selection.isEmpty
+                        ? selection.active
+                        : selection.end;
+                    const beforeText = editor.document.getText(
+                        new vscode.Range(new vscode.Position(0, 0), selection.start)
+                    );
+                    const afterText = editor.document.getText(
+                        new vscode.Range(
+                            selection.end,
+                            new vscode.Position(editor.document.lineCount, 0)
+                        )
+                    );
+
+                    // quickPick.busy = true;
+                    const completion = await smartWriting(
+                        beforeText,
+                        afterText,
+                        selectedText,
+                        value,
+                        notes,
+                        writeStyle,
+                        slideContent
+                    );
+                    for await (const chunk of completion) {
+                        if (cancel) {
+                            console.log("Operation cancelled by the user.");
+                            break;
+                        }
+                        const newText = chunk.content;
+                        if (!newText) {
+                            continue;
+                        }
+                        await editor.edit((editBuilder) => {
+                            editBuilder.insert(insertPosition, newText);
+                        });
+                        insertPosition = getNewPosition(insertPosition, newText);
+                    }
+                } catch (error) {
+                    console.error(error);
+                    vscode.window.showErrorMessage(error.message);
+                } finally {
+                    // quickPick.busy = false;
+                    progress.report({ message: "Done" });
+                }
+            }
+        });
     });
     quickPick.show();
 }
