@@ -286,14 +286,15 @@ ${noteMessages}
 
 async function generateByTemplate(
     template,
-    prompt
+    prompt,
+    clarification
 ) {
 
     const datetime = new Date().toLocaleString();
     const sysmsg = `Please follow the given template format to generate content.
 
 //Guidelines
-- 当前系统时间 ${datetime}, 这个时间可以在生成内容时使用
+- Current system time: ${datetime},This time can be used when generating content 
 - Analyze the user input prompts to specify the content to be generated.
 - Analyze the given template, which may have specific requirements for content generation that must be followed.
 - Note that the template only provides the format of the content, and the specific content to be generated is based on the user input prompts.
@@ -302,6 +303,8 @@ async function generateByTemplate(
 - If '.....' is present in the template, it means that more content needs to be generated according to the template specification.
 - If '...end' is present in the template, stop generating here, but make sure not to output '...end'.
 - If the user specifies a language, follow the request to output the content in the specified language.
+
+Clarification: ${clarification}
 
 // The given content template is as follows.
 

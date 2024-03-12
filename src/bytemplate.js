@@ -25,7 +25,24 @@ A: <Answer Content>
 
 ......
 
+`,
+    "Socratic Explorer": `
+The importance of personalized learning lies in its ability to meet the learning needs, interests, and speed of different students. This method of teaching helps students learn more effectively while increasing their engagement and motivation. The following questions are designed to lead you to think deeply about the value of personalized learning: 
+
+- How does personalized learning meet the different learning needs and preferences of each student?
+- How does it help students advance in the areas they are most interested in and most needed?
+- In a personalized learning environment, how can teachers ensure that each student has access to resources and guidance appropriate to their level of development?
+- How does personalized learning promote students' ability to learn independently and at their own pace?
+- What are the requirements for teaching resources and teacher training for the implementation of personalized learning?
+- What is the impact of personalized learning on students' academic achievement and personal growth over the long term?
+- How can you evaluate the effectiveness of personalized learning strategies in practice?    
 `
+}
+
+const clarificationList = {
+    "Jekyll post header template": "Create headlines that are creative and intriguing, but don't overstate the case.",
+    "Q&A List template": "Create at least 5 Q&A",
+    "Socratic Explorer": "Analyze the user's input and use the Socratic questioning method to generate a concise, detailed, and easy-to-understand list of questions. Challenge assumptions in a reflective way. Ensure that image standards are met."
 }
 
 function getTemplate(template) {
@@ -68,6 +85,7 @@ async function bytemplateCommand(context) {
             vscode.window.showErrorMessage("Empty template.");
             return;
         }
+        const clarification = clarificationList[quickPick.selectedItems[0].label];
         const value = quickPick.value;
 
         const editor = vscode.window.activeTextEditor;
@@ -83,6 +101,7 @@ async function bytemplateCommand(context) {
                 const completion = await generateByTemplate(
                     template,
                     value,
+                    clarification
                 );
                 for await (const chunk of completion) {
                     if (cancel) {

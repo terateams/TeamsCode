@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Rag support
 - Langchain support
 
+## [0.0.9]
+
+- add new template
+
 ## [0.0.8]
 
 - Support Colloquial writing
