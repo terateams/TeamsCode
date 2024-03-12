@@ -35,19 +35,24 @@ class TeamsGPTAPI {
             }
         );
 
-        const reader = response.body ? response.body.getReader() : null;
-        if (!reader) {
-            throw new Error("Response body is undefined");
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}, statusText: ${response.statusText}`);
         }
+
+        // const reader = response.body.getReader();
+        
+        // if (!reader) {
+        //     throw new Error("Response body is undefined");
+        // }
 
         const decoder = new TextDecoder();
 
-        while (true) {
-            const { done, value } = await reader.read();
+        for await (const value of response.body) {
+            // const { done, value } = await reader.read();
 
-            if (done) {
-                return;
-            }
+            // if (done) {
+            //     return;
+            // }
 
             const decodedChunk = decoder.decode(value);
             // Clean up the data
