@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Rag support
 - Langchain support
 
+## [0.0.11]
+
+adjust prompt template
+
 ## [0.0.10]
 
 - fix fetch reader bug
