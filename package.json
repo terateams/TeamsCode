@@ -93,6 +93,14 @@
         }
       },
       {
+        "command": "teamscode.imagine",
+        "title": "%imagine.command.title%",
+        "icon": {
+          "light": "./assets/icon.svg",
+          "dark": "./assets/icon.svg"
+        }
+      },
+      {
         "command": "teamscode.notelist",
         "title": "%notelist.command.title%",
         "icon": {
@@ -149,6 +157,11 @@
       {
         "command": "teamscode.bytemplate",
         "key": "alt+t",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "teamscode.imagine",
+        "key": "alt+x",
         "when": "editorTextFocus"
       },
       {
@@ -218,6 +231,10 @@
         },
         {
           "command": "teamscode.bytemplate",
+          "group": "navigation"
+        },
+        {
+          "command": "teamscode.imagine",
           "group": "navigation"
         },
         {

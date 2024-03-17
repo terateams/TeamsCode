@@ -16,6 +16,35 @@ class TeamsGPTAPI {
     }
 
     /**
+     * @param {string} prompt
+     * @param {string} quality
+     * @param {string} size
+     * @param {string} style
+     * @returns {Promise<Object>}
+     */
+    async imagine(prompt, quality, size, style) {
+        const response = await fetch(`${this.teamsgptApiEndpoint}/api/imagine`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                prompt,
+                quality,
+                size,
+                style
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    }
+
+    /**
      * @param {string} sysmsg
      * @param {string} prompt
      */
@@ -40,7 +69,7 @@ class TeamsGPTAPI {
         }
 
         // const reader = response.body.getReader();
-        
+
         // if (!reader) {
         //     throw new Error("Response body is undefined");
         // }
@@ -332,10 +361,23 @@ ${template}
 }
 
 
+async function genImage(
+    prompt,
+    quality,
+    size,
+    style
+) {
+
+    const response = await client.imagine(prompt, "hd", "1024x1024", "vivid");
+    return response.data;
+}
+
+
 module.exports = {
     smartWriting,
     smartSummaries,
     smartCoding,
     smartGenMarpSlide,
-    generateByTemplate
+    generateByTemplate,
+    genImage
 };

@@ -6,6 +6,7 @@ const genslideCommand = require("./src/genslide").genslideCommand;
 const bytemplateCommand = require("./src/bytemplate").bytemplateCommand;
 const notelistCommand = require("./src/notelist").notelistCommand;
 const addNoteCommand = require("./src/notelist").addNoteCommand;
+const imagineCommand = require("./src/genimage").imagineCommand;
 
 const commands = {
     "teamscode.aiwrite": "Continue writing",
@@ -13,6 +14,7 @@ const commands = {
     "teamscode.summaries": "Summarize selection",
     "teamscode.genslide": "Create marp slide",
     "teamscode.bytemplate": "Generate by template",
+    "teamscode.imagine": "Generate image",
     "teamscode.notelist": "Open note list",
     "teamscode.addNote": "Add to note list",
     "teamscode.showCommands": "Show extension commands",
@@ -48,6 +50,12 @@ function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("teamscode.bytemplate", async () => {
             await bytemplateCommand(context);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("teamscode.imagine", async () => {
+            await imagineCommand(context);
         })
     );
 

@@ -4,6 +4,7 @@
     "summaries.command.title": "Summarize selection",
     "genslide.command.title": "Create Marp Slide",
     "bytemplate.command.title": "Generate By Template",
+    "imagine.command.title": "Generate image",
     "notelist.command.title": "Open Note List",
     "addNote.command.title": "Add to notelist",
     "showCommands.command.title": "Show command list",
