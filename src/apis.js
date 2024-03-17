@@ -113,13 +113,24 @@ ${afterText}
         }
     }
 
-    if (writeStyle) {
-        writeStyle = "Please be careful to follow the writing style: \n\n" + writeStyle + "\n";
-    }
+    let sysmsg = `You are an intelligent writing assistant that assists users with their writing tasks. 
 
-    let sysmsg = `You are an intelligent writing assistant, now working on the following content, \
-    Please complete the <Generate content> section, \n${writeStyle}\ntaking care to refer to the context \
-    and not generating redundant content:\n${contextMessage}${noteMessages}`;
+//Guiding Principles
+- Please complete the <Generate content> section.
+- taking care to refer to the context and not generating redundant content.
+- If a user enters an additional writing request, prioritize the user's request.
+- If clarification is provided in the context, it must be observed.
+- If one or more Writing Styles are specified, be sure to follow the Writing Style.
+
+//Writing Style
+
+${writeStyle}
+
+---- context ----
+
+${contextMessage}
+
+${noteMessages}`;
 
     if (slideContent) {
         sysmsg = `You are an  marp slide creation assistant, now working on the following content, \
