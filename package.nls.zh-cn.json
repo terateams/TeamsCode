@@ -7,6 +7,7 @@
     "imagine.command.title": "生成图片",
     "notelist.command.title": "打开笔记列表",
     "addNote.command.title": "添加到笔记列表",
+    "statToken.command.title": "统计 Token 数量",
     "showCommands.command.title": "显示命令列表",
     "openExtensionSettings.command.title": "打开扩展设置"
 }

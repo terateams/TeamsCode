@@ -2,7 +2,7 @@
   "name": "teamscode",
   "displayName": "TeamsCode",
   "description": "This is a vscode extension for AI-assisted writing",
-  "version": "0.0.12",
+  "version": "0.0.13",
   "publisher": "TeraTeams",
   "engines": {
     "vscode": "^1.86.0"
@@ -125,6 +125,14 @@
         }
       },
       {
+        "command": "teamscode.statToken",
+        "title": "%statToken.command.title%",
+        "icon": {
+          "light": "./assets/title.svg",
+          "dark": "./assets/title-dark.svg"
+        }
+      },
+      {
         "command": "teamscode.openExtensionSettings",
         "title": "%openExtensionSettings.command.title%",
         "icon": {
@@ -175,6 +183,11 @@
         "when": "editorHasSelection"
       },
       {
+        "command": "teamscode.statToken",
+        "key": "shift+ctrl+t",
+        "when": "editorTextFocus"
+      },
+      {
         "command": "teamscode.showCommands",
         "key": "shift+ctrl+m",
         "when": "editorTextFocus"
@@ -197,6 +210,11 @@
         },
         {
           "command": "teamscode.summaries",
+          "group": "teamscodeGroup",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "teamscode.statToken",
           "group": "teamscodeGroup",
           "when": "editorHasSelection"
         },
@@ -243,6 +261,11 @@
         },
         {
           "command": "teamscode.addNote",
+          "group": "navigation",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "teamscode.statToken",
           "group": "navigation",
           "when": "editorHasSelection"
         },

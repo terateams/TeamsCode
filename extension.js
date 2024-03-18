@@ -7,6 +7,7 @@ const bytemplateCommand = require("./src/bytemplate").bytemplateCommand;
 const notelistCommand = require("./src/notelist").notelistCommand;
 const addNoteCommand = require("./src/notelist").addNoteCommand;
 const imagineCommand = require("./src/genimage").imagineCommand;
+const statTokens = require("./src/apis").statTokens;
 
 const commands = {
     "teamscode.aiwrite": "Continue writing",
@@ -28,7 +29,7 @@ function activate(context) {
             await writingCommand(context);
         })
     );
-    
+
     context.subscriptions.push(
         vscode.commands.registerCommand("teamscode.summaries", async () => {
             await summariesCommand(context);
@@ -68,6 +69,19 @@ function activate(context) {
     context.subscriptions.push(
         vscode.commands.registerCommand("teamscode.addNote", async () => {
             await addNoteCommand(context);
+        })
+    );
+
+    context.subscriptions.push(
+        vscode.commands.registerCommand("teamscode.statToken", async () => {
+            const editor = vscode.window.activeTextEditor;
+            if (editor) {
+                const selection = editor.selection;
+                const selectedText = editor.document.getText(selection);
+                const text = selectedText.trim();
+                const tokens = await statTokens(text);
+                vscode.window.setStatusBarMessage(`Selected tokens: ${tokens}`);
+            }
         })
     );
 

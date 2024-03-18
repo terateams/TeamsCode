@@ -8,5 +8,6 @@
     "notelist.command.title": "Open Note List",
     "addNote.command.title": "Add to notelist",
     "showCommands.command.title": "Show command list",
+    "statToken.command.title": "Stat tokens count",
     "openExtensionSettings.command.title": "Open Extension Settings"
 }

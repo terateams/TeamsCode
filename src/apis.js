@@ -45,6 +45,29 @@ class TeamsGPTAPI {
     }
 
     /**
+     * @param {string} content
+     * @returns {Promise<object>}
+     */
+    async statToken(content) {
+        const response = await fetch(`${this.teamsgptApiEndpoint}/api/stattoken`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({
+                content,
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error(`HTTP error! status: ${response.status}`);
+        }
+
+        const data = await response.json();
+        return data;
+    }
+
+    /**
      * @param {string} sysmsg
      * @param {string} prompt
      */
@@ -368,7 +391,14 @@ async function genImage(
     style
 ) {
 
-    const response = await client.imagine(prompt, "hd", "1024x1024", "vivid");
+    const response = await client.imagine(prompt, "hd", "1792x1024", "vivid");
+    return response.data;
+}
+
+async function statTokens(
+    content
+) {
+    const response = await client.statToken(content);
     return response.data;
 }
 
@@ -379,5 +409,6 @@ module.exports = {
     smartCoding,
     smartGenMarpSlide,
     generateByTemplate,
-    genImage
+    genImage,
+    statTokens
 };
