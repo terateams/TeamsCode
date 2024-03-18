@@ -9,6 +9,10 @@ Check [Keep a Changelog](http://keepachangelog.com/) for recommendations on how 
 - Rag support
 - Langchain support
 
+## [0.0.13]
+
+- add token stat features
+
 ## [0.0.12]
 
 - add imagine feature
